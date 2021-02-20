@@ -1,0 +1,51 @@
+main:
+  enable_cors: true
+
+server:
+  host: localhost
+  port: 8000
+  reuse_address: true
+  reuse_port: true
+
+logging:
+  version: 1
+  disable_existing_loggers: False
+  formatters:
+    simple:
+      format: '%(name)s %(levelname)s %(asctime)s %(pathname)s:%(funcName)s() "%(message)s"'
+    logstash:
+      message_type: app_logs
+      (): logstash_async.formatter.LogstashFormatter
+      extra:
+        application: app
+
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: DEBUG
+      formatter: simple
+      stream: ext://sys.stdout
+    dev_log:
+      class: logging.handlers.SysLogHandler
+      level: DEBUG
+      formatter: simple
+      address: /dev/log
+      facility: local5
+
+  loggers:
+    app:
+      level: DEBUG
+      handlers: [dev_log, console]
+      propagate: False
+    aiohttp:
+      level: ERROR
+      handlers: [dev_log, console]
+      propagate: True
+    aiohttp.server:
+      level: ERROR
+      handlers: [dev_log, console]
+      propagate: True
+    aioamqp:
+      level: ERROR
+      handlers: [dev_log, console]
+      propagate: False

@@ -125,7 +125,7 @@ class SchemaValidator(BaseValidator):
     @classmethod
     def str_field(cls, data: dict, field: str, field_name: str,
                     is_required: bool=False) -> str:
-        """Валидация строковых полей параметров поля КП surmise.extra.
+        """Валидация строковых полей параметров.
         Заменяет исходную строку на строку, прошедшую валидацию.
 
         Args:
