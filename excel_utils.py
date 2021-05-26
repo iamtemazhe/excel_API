@@ -15,7 +15,7 @@ from openpyxl.worksheet.worksheet import Worksheet as PyxlWorksheet
 
 
 class Worksheet(PyxlWorksheet):
-    def cell(self, row, column, value=None, style: PyxlStyle=None):
+    def cell(self, row, column, value=None, style: PyxlStyle = None):
         """
         Returns a cell object based on the given coordinates.
 

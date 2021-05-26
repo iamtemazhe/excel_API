@@ -3,10 +3,8 @@ import re
 from datetime import datetime
 
 from marshmallow import ValidationError
-from xlrd import open_workbook, xldate_as_tuple
+from xlrd import open_workbook
 
-from .base import time, time_now
-from .const import SocialNet
 from .loggers import getLogger
 from .schema_validators import SchemaValidator
 from .settings import get_config
@@ -20,7 +18,7 @@ class MigrationBase:
     # Периодичность вывода информации о миграциях
     COUNT_STEP = 50
     # Ключи таблиц БД
-    DB_ID                           = 'id'
+    DB_ID = 'id'
 
     @staticmethod
     def get_valid_url(url: str) -> str:
@@ -48,87 +46,6 @@ class MigrationBase:
     @staticmethod
     def strip(string: str) -> str:
         return re.sub(" +", " ", string.strip())
-
-    @staticmethod
-    def url_parser(url: str) -> int:
-        # VK
-        if re.search(
-            r'https?:\/\/(www\.)?vk\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.VK
-
-        # My_mail
-        if re.search(
-            r'https?:\/\/my.mail\.ru(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.MY_MAIL
-
-        # Youtube
-        if re.search(
-            r'^https?:\/\/(www\.)?youtube\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.YOUTUBE
-
-        # OK
-        if re.search(
-            r'^https?:\/\/(www\.)?ok\.ru(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.OK
-
-        # Telegram
-        if re.search(
-            r'^https?:\/\/(www\.)?(t\.me|telegram\.org)(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.TELEGRAM
-
-        # LJ
-        if re.search(
-            r'^https?:\/\/(.+?).livejournal\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.LJ
-
-        # Ответы
-        if re.search(
-            r'^https?:\/\/(.+?).otvet\.mail\.ru(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.ANSWERS
-
-        # Instagram
-        if re.search(
-            r'https?:\/\/(www.)?instagram\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.INSTAGRAM
-
-        # Twitter
-        if re.search(
-            r'^https?:\/\/(www\.)?twitter\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.TWITTER
-
-        # Facebook
-        if re.search(
-            r'^https?:\/\/(www\.|ru-ru\.)?facebook\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.FACEBOOK
-
-        # TikTok
-        if re.search(
-            r'^https?:\/\/(www\.)?tiktok\.com(\/)?',
-            url, re.I
-        ) is not None:
-            return SocialNet.TIKTOK
-
-        return SocialNet.OTHER
 
 
 class SheetData:
@@ -188,11 +105,11 @@ class ExcelMigrationBase(MigrationBase):
     # Класс получения данных таблиц
     SheetData = SheetData
     # Ключевое слово в наименовании таблицы
-    KEY_WORD = 'нарушения'
+    KEY_WORD = 'lorel'
     # Рыба для заполнения мигрируемого материала
     MIGRATION_TEXT = 'migration_from_excel'
     # Ключи таблиц в excel
-    E_URL                           = 'ссылка'
+    E_URL = 'ссылка'
 
 
 class ExcelMigration(ExcelMigrationBase):

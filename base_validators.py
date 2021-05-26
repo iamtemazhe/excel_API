@@ -2,22 +2,22 @@ import re
 
 
 class BaseError:
-    _MISSING        = 0b00000001
-    _EMPTY          = 0b00000010
-    _INCORRECT      = 0b00000100
-    _ID_FIELD       = 0b01000000
-    _REQUIRED       = 0b10000000
+    _MISSING = 0b00000001
+    _EMPTY = 0b00000010
+    _INCORRECT = 0b00000100
+    _ID_FIELD = 0b01000000
+    _REQUIRED = 0b10000000
 
     @classmethod
-    def get_missing(cls, is_required: bool=False):
+    def get_missing(cls, is_required: bool = False):
         return cls._MISSING | (cls._REQUIRED if is_required else 0)
 
     @classmethod
-    def get_empty(cls, is_required: bool=False):
+    def get_empty(cls, is_required: bool = False):
         return cls._EMPTY | (cls._REQUIRED if is_required else 0)
 
     @classmethod
-    def get_incorrect(cls, id_field: bool=False):
+    def get_incorrect(cls, id_field: bool = False):
         return cls._INCORRECT | (cls._ID_FIELD if id_field else 0)
 
 
